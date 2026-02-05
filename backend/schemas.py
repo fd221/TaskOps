@@ -5,7 +5,7 @@ from pydantic import BaseModel, EmailStr, ConfigDict
 class UserCreate(BaseModel):
     username: str
     email: EmailStr
-    password: str
+    password_hash: str
 
 
 # Схема для ответа
