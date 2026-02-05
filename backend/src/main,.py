@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from router import router_db
 
 from db import engine
-from models import Base
+from src.auth.router import router_db
+from src.auth.models import Base
 
 app = FastAPI()
 
