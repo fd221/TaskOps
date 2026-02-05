@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from db import get_db
 from sqlalchemy.orm import Session
-from schemas import UserRead, UserCreate
+from auth.schemas import UserRead, UserCreate
 
 import auth.service as service
 
