@@ -4,7 +4,11 @@ from models import User
 from schemas import UserCreate
 
 def create_user(db: Session, user: UserCreate):
-    new_user = User(**user.model_dump())
+    new_user = User(
+        username=user.username,
+        email=user.email,
+        password_hash=user.password
+    )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
