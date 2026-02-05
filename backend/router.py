@@ -1,10 +1,15 @@
-from fastapi import APIRouter, Response, Body, Depends, dependencies, HTTPException
+from fastapi import APIRouter, Depends
+from db import get_db
+from sqlalchemy.orm import Session
+from schemas import UserRead, UserCreate
+import crud
 
-router = APIRouter()
+router_db = APIRouter()
 
-def get_current_user():
-    return {"user_id": 1, "username": "testuser"}
+@router_db.post("/user", response_model=UserRead)
+def create_user_endpoint(user: UserCreate, db: Session = Depends(get_db)):
+    return crud.create_user(db, user)
 
-@router.post("/create_item")
-async def create_item(user: dict = Depends(get_current_user)):
-    return {"message": "Item created successfully", "user id": user["user_id"]}
+@router_db.get("/user", response_model=UserRead)
+def get_user_endpoint(username: str, db: Session = Depends(get_db)):
+    return crud.get_user_by_username(db, username)
